@@ -3,7 +3,7 @@ import { withRouter } from "react-router";
 import Carousel from "./Carousel";
 import ErrorBoundary from "./ErrorBoundary";
 import ThemeContext from "./ThemeContext";
-import Modal from "./modal";
+import Modal from "./Modal";
 
 class Details extends Component {
   state = { loading: true, showModal: false };
