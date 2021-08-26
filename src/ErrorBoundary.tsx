@@ -1,14 +1,19 @@
-import { Component } from "react";
+import { Component, ErrorInfo, ReactNode } from "react";
 import { Link, Redirect } from "react-router-dom";
+
+interface StateType {
+  hasError: boolean;
+  redirect: boolean;
+}
 
 class ErrorBoundary extends Component {
   state = { hasError: false, redirect: false };
 
-  static getDerivedStateFromError() {
-    return { hasError: true };
+  static getDerivedStateFromError(): StateType {
+    return { hasError: true, redirect: false };
   }
 
-  componentDidCatch(error, info) {
+  componentDidCatch(error: Error, info: ErrorInfo): void {
     // Log this to Sentry, Azure Monitor, New Relic, TrackJS
     console.error("ErrorBoundary caught an error", error, info);
     setTimeout(() => {
@@ -16,7 +21,7 @@ class ErrorBoundary extends Component {
     }, 5000);
   }
 
-  render() {
+  render(): ReactNode {
     if (this.state.redirect) {
       return <Redirect to="/" />;
     } else if (this.state.hasError) {
