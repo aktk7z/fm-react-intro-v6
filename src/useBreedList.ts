@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
+import { Animal, BreedAPIResponse } from "./APIResponseTypes";
 
-const localCache = {};
+const localCache: {[index: string]: string[]} = {};
 
-export const useBreedList = (animal) => {
-  const [breedList, setBreedList] = useState([]);
-  const [status, setStatus] = useState("unloaded");
+type Status = "unloaded" | "loading" | "loaded";
+
+export const useBreedList = (animal: Animal): [string[], Status] => {
+  const [breedList, setBreedList] = useState([] as string[]);
+  const [status, setStatus] = useState("unloaded" as Status);
 
   useEffect(() => {
     console.log(localCache);
@@ -13,7 +16,7 @@ export const useBreedList = (animal) => {
     } else if (localCache[animal]) {
       setBreedList(localCache[animal]);
     } else {
-      requestBreedList();
+      void requestBreedList();
     }
 
     // can not use arrow functions here
@@ -25,7 +28,7 @@ export const useBreedList = (animal) => {
         `http://pets-v2.dev-apis.com/breeds?animal=${animal}`
       );
 
-      const json = await res.json();
+      const json = await res.json() as BreedAPIResponse;
       localCache[animal] = json.breeds || [];
       setBreedList(localCache[animal]);
       setStatus("loaded");
