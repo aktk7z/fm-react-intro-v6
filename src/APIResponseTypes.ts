@@ -3,7 +3,7 @@ export type Animal = "dog" | "cat" | "bird" | "reptile" | "rabbit";
 export interface Pet {
   id: number;
   name: string;
-  anmial: Animal;
+  animal: Animal;
   description: string;
   breed: string;
   images: string[];

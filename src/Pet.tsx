@@ -4,7 +4,7 @@ import { string } from "prop-types";
 import { Animal } from "./APIResponseTypes";
 
 interface IProps {
-  id: string;
+  id: number;
   name: string;
   animal :Animal
   breed: string;
