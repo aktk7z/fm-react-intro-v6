@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { FunctionComponent } from "react";
-import { string } from "prop-types";
 import { Animal } from "./APIResponseTypes";
 
 interface IProps {
